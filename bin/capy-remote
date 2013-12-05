@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+
+require 'capybara/remote/viewer/cli'
+
+Capybara::Remote::Viewer::CLI.start(ARGV)
