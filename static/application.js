@@ -3,7 +3,7 @@ $(function() {
     $('ul li').remove();
     var ul = $('ul');
     $(data.files).each(function(index, item) {
-      ul.append('<li><a href="' + item.url + '">' + item.name + '</a></li>');
+      ul.append('<li><a href="' + item.url + '" target="porthole">' + item.name + '</a></li>');
     });
   };
 

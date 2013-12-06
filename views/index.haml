@@ -3,10 +3,15 @@
     %title Capybara output for #{dir}
     %script{ type: 'text/javascript', src: 'http://codeorigin.jquery.com/jquery-2.0.3.min.js' }
     %script{ type: 'text/javascript', src: '/application.js' }
+
+    %style
+      ul { display: inline }
+      iframe { width: 100%; height: 100% }
+
   %body
-    %ul{ style: 'display: inline' }
+    %ul
       - files.each do |file|
         %li
-          %a{ href: file_path(file) }=file_name(file)
+          %a{ href: file_path(file), target: 'porthole' }=file_name(file)
 
-    %iframe{ name: 'porthole', style: 'width: 100%' }
+    %iframe{ name: 'porthole' }
