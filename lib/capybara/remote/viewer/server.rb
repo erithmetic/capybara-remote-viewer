@@ -6,7 +6,16 @@ module Capybara
   module Remote
     module Viewer
       class Server < Sinatra::Base
-        set :views, File.expand_path('../views', __FILE__)
+
+        def self.path
+          @path
+        end
+        def self.path=(val)
+          @path = val
+        end
+
+        set :views, File.expand_path('../../../../../views', __FILE__)
+        set :public_folder, File.expand_path('../../../../../static', __FILE__)
 
         def files
           Dir.glob File.expand_path('../tmp/capybara/*.html', __FILE__)
@@ -20,9 +29,6 @@ module Capybara
           haml :index, locals: { dir: Dir.pwd }
         end
 
-        get '/application.js' do
-          headers 'Content-Type' => 'text/javascript'
-          File.read File.expand_path('../views/application.js', __FILE__)
         end
 
         get '/files' do

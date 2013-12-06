@@ -4,4 +4,9 @@
     %script{ type: 'text/javascript', src: 'http://codeorigin.jquery.com/jquery-2.0.3.min.js' }
     %script{ type: 'text/javascript', src: '/application.js' }
   %body
-    %ul
+    %ul{ style: 'display: inline' }
+      - files.each do |file|
+        %li
+          %a{ href: file_path(file) }=file_name(file)
+
+    %iframe{ name: 'porthole', style: 'width: 100%' }
