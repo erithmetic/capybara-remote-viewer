@@ -18,17 +18,23 @@ module Capybara
         set :public_folder, File.expand_path('../../../../../static', __FILE__)
 
         def files
-          Dir.glob File.expand_path('../tmp/capybara/*.html', __FILE__)
+          Dir.glob File.join(Server.path, 'tmp/**/*.html')
         end
 
         def file(id)
-          files.find { |f| f =~ /#{id}$/ }
+          files.find { |f| f =~ /#{id}.html$/ }
+        end
+
+        def file_path(str)
+          "/files/#{file_name(str)}"
+        end
+
+        def file_name(str)
+          File.basename(str, '.html')
         end
 
         get '/' do
-          haml :index, locals: { dir: Dir.pwd }
-        end
-
+          haml :index, locals: { dir: Server.path, files: files }
         end
 
         get '/files' do
@@ -37,7 +43,7 @@ module Capybara
         end
 
         get '/files/:id' do
-          File.read file(params[:id])
+          File.read file(params['id'])
         end
       end
     end
