@@ -18,7 +18,7 @@ module Capybara
         set :public_folder, File.expand_path('../../../../../static', __FILE__)
 
         def files
-          Dir.glob File.join(Server.path, 'tmp/**/*.html')
+          Dir.glob File.join(Server.path, '**/*.html')
         end
 
         def file(id)
@@ -39,7 +39,12 @@ module Capybara
 
         get '/files' do
           headers 'Content-Type' => 'application/json'
-          { files: files }.to_json
+
+          list = files.map do |file|
+            { name: file_name(file), url: file_path(file) }
+          end
+
+          { files: list }.to_json
         end
 
         get '/files/:id' do

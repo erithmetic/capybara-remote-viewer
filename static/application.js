@@ -2,8 +2,8 @@ $(function() {
   var update = function(data) {
     $('ul li').remove();
     var ul = $('ul');
-    $(data.files).each(function(item) {
-      ul.append('<li><a href="/files/' + item + '">' + item + '</a></li>');
+    $(data.files).each(function(index, item) {
+      ul.append('<li><a href="' + item.url + '">' + item.name + '</a></li>');
     });
   };
 
