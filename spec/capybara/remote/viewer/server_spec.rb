@@ -19,7 +19,7 @@ describe Capybara::Remote::Viewer::Server do
     it 'links to existing files' do
       get '/'
 
-      last_response.body.should =~ %r{<a href='/files/1'>1</a>}
+      last_response.body.should =~ %r{<a href='/files/1' target='porthole'>1</a>}
     end
     
   end
