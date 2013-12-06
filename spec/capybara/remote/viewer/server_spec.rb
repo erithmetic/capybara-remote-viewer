@@ -34,5 +34,23 @@ describe Capybara::Remote::Viewer::Server do
 
   end
 
+  describe '#file_date' do
+
+    let(:server) { app.new.instance_variable_get(:@instance) }
+
+    it 'parses a capybara file name as a date string' do
+      server.
+        file_date('/path/to/app/tmp/capybara/capybara-201312061034395395175534.html').
+        should == '2013/12/06 - 10:34:39.5395175534'
+    end
+
+    it "just returns a string if it doesn't match standard capy file name" do
+      server.
+        file_date('/path/to/app/tmp/foo/bar.html').
+        should == 'bar'
+    end
+
+  end
+
 end
 

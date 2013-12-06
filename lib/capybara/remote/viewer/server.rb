@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'haml'
 require 'json'
+require 'time'
 
 module Capybara
   module Remote
@@ -33,6 +34,18 @@ module Capybara
           File.basename(str, '.html')
         end
 
+        def file_date(str)
+          filename = file_name(str)
+          prefix, date_str = filename.split('-')
+          if prefix == 'capybara'
+            time = Time.parse date_str[0..13]
+            ms = date_str[14..-1]
+            time.strftime("%Y/%m/%d - %H:%M:%S.#{ms}")
+          else
+            filename
+          end
+        end
+
         get '/' do
           haml :index, locals: { dir: Server.path, files: files }
         end
@@ -41,7 +54,7 @@ module Capybara
           headers 'Content-Type' => 'application/json'
 
           list = files.map do |file|
-            { name: file_name(file), url: file_path(file) }
+            { name: file_date(file), url: file_path(file) }
           end
 
           { files: list }.to_json
