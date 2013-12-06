@@ -6,8 +6,10 @@ module Capybara
       class CLI < Thor
 
         desc 'serve', 'Run the web server'
-        method_option :path, type: :string, default: nil, aliases: '-t'
-        method_option :port, type: :numeric, default: 3000, aliases: '-p'
+        method_option :path, type: :string, default: nil, aliases: '-t',
+          desc: "Path to your app's tmp directory, or any directory containing html files"
+        method_option :port, type: :numeric, default: 3000, aliases: '-p',
+          desc: "Port for the server to listen on"
         def serve
           path = options.path || File.join(Dir.pwd, 'tmp')
 
